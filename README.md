@@ -69,17 +69,22 @@ retinalmind-ai/
 
 git clone https://github.com/YOUR_USERNAME/retinalmind-ai.git
 cd retinalmind-ai
-###2️⃣ Install dependencies
+
+### 2️⃣ Install dependencies
 pip install -r requirements.txt
-###3️⃣ Run the application
+
+### 3️⃣ Run the application
 python app.py
-###4️⃣ Open in browser
+
+### 4️⃣ Open in browser
 http://127.0.0.1:5000
-###📊 Sample Output:
+
+### 📊 Sample Output:
 🚨 High Risk Detected
 📈 Confidence: 87.45%
 
-###Screenshot 
+
+### Screenshot 
 <img width="1366" height="617" alt="Screenshot 2026-04-28 214619" src="https://github.com/user-attachments/assets/a9fd6c3d-c353-4000-a5d0-2626b4368803" />
 
 <img width="1366" height="618" alt="Screenshot 2026-04-28 214710" src="https://github.com/user-attachments/assets/6155dd01-28c3-48a9-b527-b16a3c38ce86" />
@@ -89,14 +94,15 @@ http://127.0.0.1:5000
 
 The dataset used (ODIR - Ocular Disease Intelligent Recognition) is not included in this repository due to licensing restrictions.
 
-###🚀 Future Enhancements
+
+### 🚀 Future Enhancements
 📱 Mobile application support
 📊 Multi-class disease detection
 ☁️ Cloud deployment
 🧠 Improved model accuracy with larger datasets
 
 
-###👨‍💻 Author
 
-Saifullah
-B.Tech AI & Data Science
+### 👨‍💻 Author
+
+Saifullah S
