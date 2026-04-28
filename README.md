@@ -49,19 +49,17 @@ The system also provides a **confidence score** to improve interpretability.
 
 ## 📂 Project Structure
 retinalmind-ai/
+├──app.py Flask application
+├──train_model.py  Model training script
+├──predict.py  Prediction script
+├──retinal_model.pth  Trained model
+├──requirements.txt   Dependencies
 │
-├── app.py # Flask application
-├── train_model.py # Model training script
-├── predict.py # Prediction script
-├── retinal_model.pth # Trained model
-├── requirements.txt # Dependencies
+├──templates/
+│ └──index.html  Frontend UI
 │
-├── templates/
-│ └── index.html # Frontend UI
+├──static/  Uploaded images
 │
-├── static/ # Uploaded images
-│
-└── README.md
 
 ## ⚙️ How to Run Locally
 
@@ -90,7 +88,8 @@ http://127.0.0.1:5000
 <img width="1366" height="618" alt="Screenshot 2026-04-28 214710" src="https://github.com/user-attachments/assets/6155dd01-28c3-48a9-b527-b16a3c38ce86" />
 
 
-###⚠️ Dataset Disclaimer
+
+### ⚠️ Dataset Disclaimer
 
 The dataset used (ODIR - Ocular Disease Intelligent Recognition) is not included in this repository due to licensing restrictions.
 
