@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RetinalMind AI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f5f7fb;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+/* CARD */
+.card {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* UPLOAD BOX */
+.upload-box {
+    border: 2px dashed #0072ff;
+    padding: 50px;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.upload-box:hover {
+    background: #f0f7ff;
+}
+
+.upload-box input {
+    display: none;
+}
+
+/* BUTTON */
+button {
+    display: block;
+    margin: 25px auto;
+    padding: 15px 45px;
+    border: 2px solid #0072ff;
+    border-radius: 30px;
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* RESULT */
+.result-container {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {opacity:0; transform:translateY(20px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+/* RESULT CARDS */
+.result-flex {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.result-card {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* FEATURES */
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px;
+    flex-wrap: wrap;
+}
+
+.feature-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+img {
+    margin-top: 15px;
+    width: 100%;
+    border-radius: 10px;
+}
+</style>
+
+<script>
+function triggerFileInput() {
+    document.getElementById("fileInput").click();
+}
+
+function showFileName(input) {
+    document.getElementById("fileName").innerText = input.files[0].name;
+}
+
+function showLoader() {
+    document.getElementById("loading").style.display = "block";
+}
+</script>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <h2>🧠 Cognitive Insight</h2>
+    <span>&nbsp; Dementia Risk Prediction</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>Advanced Retinal Analysis for <span style="color:#0072ff;">Dementia Risk Assessment</span></h1>
+    <p>Upload a retinal image to get AI-powered cognitive risk prediction</p>
+</div>
+
+<!-- MAIN CARD -->
+<div class="card">
+
+<form method="POST" enctype="multipart/form-data">
+
+    <!-- UPLOAD BOX -->
+    <div class="upload-box" onclick="triggerFileInput()">
+        <input type="file" id="fileInput" name="file" onchange="showFileName(this)" required>
+        <p>📤 Click to upload retinal image</p>
+        <p id="fileName" style="font-size:14px; color:gray;">No file selected</p>
+    </div>
+
+    <!-- BUTTON -->
+    <button type="submit" onclick="showLoader()">Analyze</button>
+
+</form>
+
+<p id="loading" style="display:none; text-align:center;">⏳ Analyzing...</p>
+
+{% if image_path %}
+    <img src="{{ image_path }}">
+{% endif %}
+
+<!-- RESULT -->
+{% if result %}
+<div class="result-container">
+
+    <div style="
+        margin-top:30px;
+        padding:25px;
+        border-radius:15px;
+        border:2px solid {% if 'High' in result %}#ff4d4d{% else %}#4CAF50{% endif %};
+        background: {% if 'High' in result %}#fff5f5{% else %}#f5fff7{% endif %};
+    ">
+
+        <h2 style="color:{% if 'High' in result %}#d32f2f{% else %}#2e7d32{% endif %};">
+            {% if 'High' in result %}
+                🚨 High Risk Detected
+            {% else %}
+                ✅ Low Risk Detected
+            {% endif %}
+        </h2>
+
+        <p>
+            {% if 'High' in result %}
+                The analysis suggests elevated dementia risk factors.
+            {% else %}
+                No significant cognitive risk detected.
+            {% endif %}
+        </p>
+
+        <div class="result-flex">
+
+            <!-- CONFIDENCE -->
+            <div class="result-card">
+                <h4>📈 Confidence Score</h4>
+                <h2>{{ confidence|round(2) }}%</h2>
+
+                <div style="background:#eee; height:10px; border-radius:5px;">
+                    <div style="
+                        width:{{ confidence }}%;
+                        height:100%;
+                        background:linear-gradient(to right,#00c6ff,#0072ff);
+                    "></div>
+                </div>
+
+                <p style="font-size:12px; color:gray;">
+                    Model confidence based on prediction
+                </p>
+            </div>
+
+            <!-- ANALYSIS -->
+            <div class="result-card">
+                <h4>🧠 Key Analysis Factors</h4>
+                <ul style="text-align:left; color:gray;">
+                    <li>Retinal blood vessel patterns</li>
+                    <li>Age-related risk indicators</li>
+                    <li>AI-based feature extraction</li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endif %}
+
+</div>
+
+<!-- FEATURES -->
+<div class="features">
+    <div class="feature-box">
+        <h4>📤 Easy Upload</h4>
+        <p>Simple retinal image upload</p>
+    </div>
+
+    <div class="feature-box">
+        <h4>🧠 AI Analysis</h4>
+        <p>Deep learning-based prediction</p>
+    </div>
+
+    <div class="feature-box">
+        <h4>📊 Clear Results</h4>
+        <p>Confidence-based insights</p>
+    </div>
+</div>
+
+</body>
+</html>
